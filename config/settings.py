@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 from dotenv import load_dotenv
+from datetime import timedelta
 import os
 
 load_dotenv()
@@ -79,6 +80,15 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 #Custom
 AUTH_USER_MODEL = 'users.CustomUser'
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),  
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),     
+    "ROTATE_REFRESH_TOKENS": True,                   
+    "BLACKLIST_AFTER_ROTATION": False, #blocks old token after receiving new, currently on False while development               
+    "ALGORITHM": "HS256",
+    "SIGNING_KEY": SECRET_KEY,
+}
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
